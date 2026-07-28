@@ -57,13 +57,19 @@ if.window-title-regex-substring = 'Picture.in.Picture'
 run = 'layout floating'
 
 # App Auto-Routing
-#[[on-window-detected]]
-#if.app-id = 'com.brave.Browser'
-#run = ['layout tiling', 'move-node-to-workspace 1']
-
+#
+# Helium: needs a handler script because the 'Picture.in.Picture' rule above
+# cannot catch every PiP window. Google Meet uses the Document
+# Picture-in-Picture API, and Chromium titles those windows with the plain page
+# title (e.g. "Meet - abc-defg-hij") -- the words "Picture in Picture" never
+# appear, so no title rule can match. The script instead keys off the fact that
+# real browser windows end their title with " - Helium" and PiP windows do not:
+# normal windows are tiled and routed to workspace 1, PiP windows are floated
+# and left on the workspace they appeared on so Helium keeps its bottom-right
+# placement.
 [[on-window-detected]]
 if.app-id = 'net.imput.helium'
-run = ['layout tiling', 'move-node-to-workspace 1']
+run = 'exec-and-forget HELIUM_PIP_DEBUG=1 /Users/ekakshjanweja/.config/aerospace/scripts/helium-pip-handler.sh'
 
 #[[on-window-detected]]
 #if.app-id = 'com.mitchellh.ghostty'
@@ -89,11 +95,11 @@ outer.right = 0
 
 #alt-x = 'exec-and-forget open -n /Applications/Ghostty.app'
 alt-x = 'exec-and-forget open -n /Applications/cmux.app'
-#alt-f = 'exec-and-forget open -n /Applications/Brave\ Browser.app'
 alt-f = 'exec-and-forget open -n /Applications/Helium.app'
 alt-c = 'exec-and-forget open -n /Applications/Cursor.app'
 alt-m = 'exec-and-forget open -n /Applications/Spotify.app'
-alt-b = 'exec-and-forget open -n /Applications/Zen.app'
+# Browser, same as alt-f (Zen is no longer installed)
+alt-b = 'exec-and-forget open -n /Applications/Helium.app'
 alt-shift-c = 'exec-and-forget open -n /Applications/WhatsApp.app'
 alt-shift-f = 'layout floating tiling'
 

@@ -115,6 +115,9 @@ alt-shift-r = 'exec-and-forget /Users/ekakshjanweja/.config/aerospace/scripts/or
 # Close focused window
 alt-q = 'close'
 
+# Lock screen (Option+Delete)
+alt-backspace = 'exec-and-forget pmset displaysleepnow'
+
 alt-slash = 'layout tiles horizontal vertical'
 alt-comma = 'layout accordion horizontal vertical'
 

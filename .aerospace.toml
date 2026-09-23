@@ -1,3 +1,6 @@
+# See: https://nikitabobko.github.io/AeroSpace/guide#config-version
+config-version = 2
+
 after-login-command = []
 
 after-startup-command = []
@@ -17,6 +20,11 @@ on-focus-changed = ['move-mouse window-lazy-center']
 on-focused-monitor-changed = ['move-mouse monitor-lazy-center']
 
 automatically-unhide-macos-hidden-apps = false
+
+# In config-version 1 this was inferred from workspace keybindings (now
+# error-prone default). In config-version 2 the fallback is [], so list the
+# workspaces explicitly to keep 1-9 alive when empty.
+persistent-workspaces = ["1", "2", "3", "4", "5", "6", "7", "8", "9"]
 
 [workspace-to-monitor-force-assignment]
 1 = 'main'
@@ -57,13 +65,19 @@ if.window-title-regex-substring = 'Picture.in.Picture'
 run = 'layout floating'
 
 # App Auto-Routing
-#[[on-window-detected]]
-#if.app-id = 'com.brave.Browser'
-#run = ['layout tiling', 'move-node-to-workspace 1']
-
+#
+# Helium: needs a handler script because the 'Picture.in.Picture' rule above
+# cannot catch every PiP window. Google Meet uses the Document
+# Picture-in-Picture API, and Chromium titles those windows with the plain page
+# title (e.g. "Meet - abc-defg-hij - You") -- the words "Picture in Picture"
+# never appear, so no title rule can match. The script instead keys off the
+# fact that real browser windows contain " - Helium" in their title (Helium
+# appends " - <Profile>" after it) and PiP windows do not: normal windows are
+# tiled and routed to workspace 1, PiP windows are floated and left on the
+# workspace they appeared on so Helium keeps its bottom-right placement.
 [[on-window-detected]]
 if.app-id = 'net.imput.helium'
-run = ['layout tiling', 'move-node-to-workspace 1']
+run = 'exec-and-forget HELIUM_PIP_DEBUG=1 /Users/ekakshjanweja/.config/aerospace/scripts/helium-pip-handler.sh'
 
 #[[on-window-detected]]
 #if.app-id = 'com.mitchellh.ghostty'
@@ -89,13 +103,14 @@ outer.right = 0
 
 #alt-x = 'exec-and-forget open -n /Applications/Ghostty.app'
 alt-x = 'exec-and-forget open -n /Applications/cmux.app'
-#alt-f = 'exec-and-forget open -n /Applications/Brave\ Browser.app'
 alt-f = 'exec-and-forget open -n /Applications/Helium.app'
 alt-c = 'exec-and-forget open -n /Applications/Cursor.app'
 alt-m = 'exec-and-forget open -n /Applications/Spotify.app'
-alt-b = 'exec-and-forget open -n /Applications/Zen.app'
+# Browser, same as alt-f (Zen is no longer installed)
+alt-b = 'exec-and-forget open -n /Applications/Helium.app'
 alt-shift-c = 'exec-and-forget open -n /Applications/WhatsApp.app'
 alt-shift-f = 'layout floating tiling'
+alt-shift-r = 'exec-and-forget /Users/ekakshjanweja/.config/aerospace/scripts/organize-workspaces.sh'
 
 # Close focused window
 alt-q = 'close'
@@ -158,6 +173,7 @@ esc = ['reload-config', 'mode main']
 r = ['flatten-workspace-tree', 'mode main']
 f = ['layout floating tiling', 'mode main']
 backspace = ['close-all-windows-but-current', 'mode main']
+shift-r = ['exec-and-forget /Users/ekakshjanweja/.config/aerospace/scripts/restart-aerospace.sh', 'mode main']
 
 alt-shift-h = ['join-with left', 'mode main']
 alt-shift-j = ['join-with down', 'mode main']

@@ -26,6 +26,9 @@ automatically-unhide-macos-hidden-apps = false
 # workspaces explicitly to keep 1-9 alive when empty.
 persistent-workspaces = ["1", "2", "3", "4", "5", "6", "7", "8", "9"]
 
+# burrow: tells the menu bar which workspace is focused
+exec-on-workspace-change = ['/usr/bin/notifyutil', '-p', 'in.ekaksh.burrow.workspace']
+
 [workspace-to-monitor-force-assignment]
 1 = 'main'
 2 = 'main'
@@ -88,8 +91,50 @@ if.app-id = 'com.cmuxterm.app'
 run = 'move-node-to-workspace 3'
 
 [[on-window-detected]]
+if.app-id = 'dev.zed.Zed'
+run = 'move-node-to-workspace 3'
+
+# >>> burrow · app homes (managed by burrow, edit in the app)
+[[on-window-detected]]
+if.app-id = 'com.apple.MobileSMS'
+run = 'move-node-to-workspace 4'
+
+[[on-window-detected]]
+if.app-id = 'com.apple.Preview'
+run = 'move-node-to-workspace 5'
+
+[[on-window-detected]]
+if.app-id = 'com.apple.Terminal'
+run = 'move-node-to-workspace 2'
+
+[[on-window-detected]]
+if.app-id = 'com.brave.Browser'
+run = 'move-node-to-workspace 1'
+
+[[on-window-detected]]
+if.app-id = 'com.spotify.client'
+run = 'move-node-to-workspace 6'
+
+[[on-window-detected]]
+if.app-id = 'com.t3tools.t3code'
+run = 'move-node-to-workspace 1'
+
+[[on-window-detected]]
+if.app-id = 'com.tinycast.app'
+run = 'move-node-to-workspace 6'
+
+[[on-window-detected]]
 if.app-id = 'com.todesktop.230313mzl4w4u92'
 run = 'move-node-to-workspace 3'
+
+[[on-window-detected]]
+if.app-id = 'md.obsidian'
+run = 'move-node-to-workspace 5'
+
+[[on-window-detected]]
+if.app-id = 'net.whatsapp.WhatsApp'
+run = 'move-node-to-workspace 4'
+# <<< burrow · app homes
 
 [gaps]
 inner.horizontal = 0
@@ -109,7 +154,7 @@ alt-m = 'exec-and-forget open -n /Applications/Spotify.app'
 alt-b = 'exec-and-forget open -n /Applications/Burrow.app'
 alt-shift-b = 'exec-and-forget open -n "/Applications/Brave Browser.app"'
 alt-e = 'exec-and-forget open -a Finder ~'
-alt-shift-c = 'exec-and-forget open -n /Applications/Cursor.app'
+alt-shift-c = 'exec-and-forget open -n /Applications/Zed.app'
 alt-shift-w = 'exec-and-forget open -n /Applications/WhatsApp.app'
 alt-shift-f = 'layout floating tiling'
 alt-shift-r = 'exec-and-forget /Users/ekakshjanweja/.config/aerospace/scripts/organize-workspaces.sh'

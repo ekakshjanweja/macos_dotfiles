@@ -49,7 +49,7 @@ home_for() {
         ;;
     com.cmuxterm.app) echo 3 ;;
     com.mitchellh.ghostty) echo 2 ;;
-    com.todesktop.230313mzl4w4u92) echo 3 ;; # Cursor
+    dev.zed.Zed) echo 3 ;; # Zed
     # Add more below, e.g. com.spotify.client) echo 4 ;;
     # Bundle IDs observed on your machine:
     #   net.whatsapp.WhatsApp  (WhatsApp)

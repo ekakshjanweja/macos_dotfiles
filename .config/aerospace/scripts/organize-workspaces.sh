@@ -47,7 +47,8 @@ home_for() {
         [[ "$title" == *"$APP_SUFFIX"* ]] || return 1
         echo 1
         ;;
-    com.cmuxterm.app | com.mitchellh.ghostty) echo 2 ;;
+    com.cmuxterm.app) echo 3 ;;
+    com.mitchellh.ghostty) echo 2 ;;
     com.todesktop.230313mzl4w4u92) echo 3 ;; # Cursor
     # Add more below, e.g. com.spotify.client) echo 4 ;;
     # Bundle IDs observed on your machine:

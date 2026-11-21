@@ -85,7 +85,7 @@ run = 'exec-and-forget HELIUM_PIP_DEBUG=1 /Users/ekakshjanweja/.config/aerospace
 
 [[on-window-detected]]
 if.app-id = 'com.cmuxterm.app'
-run = 'move-node-to-workspace 2'
+run = 'move-node-to-workspace 3'
 
 [[on-window-detected]]
 if.app-id = 'com.todesktop.230313mzl4w4u92'
